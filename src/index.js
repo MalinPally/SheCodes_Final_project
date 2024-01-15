@@ -49,6 +49,31 @@ function formatDate(date) {
   let hours = date.getHours();
   let day = date.getDay();
 
+  function displayForecast(){
+    let forecast = document.querySelector("#forecast");
+    let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+    let forecastHtml = "";
+
+    days.forEach(funtion (day) {
+         forecastHtml =
+         forecastHtml +
+         `
+          <div class="weather-forecast" id="forecast">
+            <div class="weather-forecast-day">
+            <div class="weather-forecast-date">${day}</div>
+            <div class="weather-forecast-icon">☁️</div>
+              <div class="weather-forecast-temperatures">
+              <div class="weather-forecast-temperature-max">
+               <strong>15°</strong>
+              </div>
+              <div class="weather-forecast-temperature-min">9°</div>
+            </div>
+          </div>
+        `;
+    });
+
+    forecastElement.innerHTML = forecastHtml;
+
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
