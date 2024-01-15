@@ -39,6 +39,11 @@ function formatTime(date) {
   return `${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[date.getDay()];
+}
 function fetchDataForDefaultCity() {
   let defaultCity = "Malmö";
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
