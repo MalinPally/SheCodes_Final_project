@@ -48,6 +48,7 @@ function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
   let day = date.getDay();
+}
 
   function displayForecast(){
     function displayForecast() {
@@ -55,6 +56,7 @@ function formatDate(date) {
     let forecast = document.querySelector("#forecast");
     let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
     let forecastHtml = "";
+    }
 
     days.forEach(function (day) {
          forecastHtml =
