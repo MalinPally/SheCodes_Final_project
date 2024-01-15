@@ -14,6 +14,11 @@ function displayEverything(response) {
   let iconUrl = response.data.condition.icon_url;
   let iconDescription = response.data.condition.icon;
 
+  let currentDateElement = document.querySelector("#current-date");
+  let currentDate = new Date(response.data.timestamp * 1000);
+  currentDateElement.innerHTML =
+    formatDay(currentDate) + " " + formatTime(currentDate);
+
   cityElement.innerHTML = response.data.city;
   temperatureElement.innerHTML = temperature;
   windElement.innerHTML = wind + " km/h";
@@ -28,6 +33,13 @@ function displayEverything(response) {
 
   getForecast(response.data.city);
 }
+
+function formatTime(date) {
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  return `${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
+}
+
 
 function fetchDataForDefaultCity() {
   let defaultCity = "Malmö";
