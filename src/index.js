@@ -92,7 +92,7 @@ function handleSearchSubmit(event) {
   let cityElement = document.querySelector("#current-city");
 
   cityElement.innerHTML = searchInput.value;
-  search(event); // Pass the event to the search function
+  search(event);
 }
 
 let searchFormElement = document.querySelector("#search-form");
