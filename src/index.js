@@ -6,6 +6,7 @@ function displayEverything(response) {
   let humidityElement = document.querySelector("#humidityElement");
   let conditionElement = document.querySelector("#conditionElement");
   let iconElement = document.querySelector("#iconElement");
+  let currentDateElement = document.querySelector("#current-date");
 
   let wind = Math.round(response.data.wind.speed);
   let humidity = Math.round(response.data.temperature.humidity);
@@ -13,7 +14,6 @@ function displayEverything(response) {
   let iconUrl = response.data.condition.icon_url;
   let iconDescription = response.data.condition.icon;
 
-  let currentDateElement = document.querySelector("#current-date");
   let currentDate = new Date(response.data.timestamp * 1000);
   currentDateElement.innerHTML =
     formatDay(currentDate) + " " + formatTime(currentDate);
