@@ -125,21 +125,18 @@ main {
 .weather-forecast-temperatures {
   text-align: center;
   margin-top: 15px;
-  color: #f65282;
   display: flex;
   justify-content: center;
 }
 
 .weather-forecast-temperature {
   font-size: 13px;
-  color: #f65282;
+  color: black;
   padding: 0px 10px;
-  font-weight: 400;
 }
 
 .weather-forecast-temperature-min {
   opacity: 0.5;
-  font-weight: 100;
 }
 
 footer {
