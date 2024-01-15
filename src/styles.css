@@ -102,9 +102,8 @@ main {
 
 .weather-forecast-day {
   text-align: center;
-  width: 18%; /* Adjust as needed */
+  width: 18%; 
   padding: 10px;
-  border: 1px solid #ccc;
 }
 
 .weather-forecast-date {
@@ -123,13 +122,13 @@ main {
 
 .weather-forecast-temperatures {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
   display: flex;
   justify-content: center;
 }
 
 .weather-forecast-temperature {
-  font-size: 10px;
+  font-size: 13px;
   color: black;
   padding: 0px 10px;
 }
