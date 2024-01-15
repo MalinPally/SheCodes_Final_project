@@ -1,5 +1,4 @@
 function displayEverything(response) {
-  console.log(response.data);
   let temperatureElement = document.querySelector("#current-temperature");
   let temperature = Math.round(response.data.temperature.current);
   let cityElement = document.querySelector("#current-city");
@@ -40,7 +39,6 @@ function formatTime(date) {
   return `${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
 }
 
-
 function fetchDataForDefaultCity() {
   let defaultCity = "Malmö";
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
@@ -60,7 +58,6 @@ function search(event) {
 }
 
 function displayForecast(response) {
-  console.log(response.data);
   let forecastElement = document.querySelector("#forecast");
   let forecastHtml = "";
 
