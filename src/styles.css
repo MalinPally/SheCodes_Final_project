@@ -134,10 +134,12 @@ main {
   font-size: 13px;
   color: #f65282;
   padding: 0px 10px;
+  font-weight: 400;
 }
 
 .weather-forecast-temperature-min {
   opacity: 0.5;
+  font-weight: 100;
 }
 
 footer {
