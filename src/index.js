@@ -1,4 +1,5 @@
 function displayEverything(response) {
+  console.log(response.data);
   let temperatureElement = document.querySelector("#current-temperature");
   let temperature = Math.round(response.data.temperature.current);
   let cityElement = document.querySelector("#current-city");
@@ -47,6 +48,7 @@ function search(event) {
 }
 
 function displayForecast(response) {
+  console.log(response.data);
   let forecastElement = document.querySelector("#forecast");
   let forecastHtml = "";
 
