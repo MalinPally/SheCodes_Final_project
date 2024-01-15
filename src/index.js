@@ -31,7 +31,10 @@ function fetchDataForDefaultCity() {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(displayEverything);
+  axios.get(apiUrl).then((response) => {
+    displayEverything(response);
+    getForecast(defaultCity);
+  });
 }
 
 function search(event) {
@@ -41,7 +44,10 @@ function search(event) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(displayEverything);
+  axios.get(apiUrl).then((response) => {
+    displayEverything(response);
+    getForecast(city);
+  });
 }
 
 
@@ -68,7 +74,7 @@ function formatDate(date) {
 
 function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
-  forecastElement.innerHTML = "";
+  forecastElement.innerHTML = ""; 
 
   let forecastHtml = "";
 
