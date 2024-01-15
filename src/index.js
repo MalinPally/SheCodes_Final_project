@@ -24,6 +24,9 @@ function displayEverything(response) {
 
   let weatherDetails = document.getElementById("weatherDetails");
   weatherDetails.style.display = "block";
+
+  // Call getForecast to update the forecast for the current city
+  getForecast(response.data.city);
 }
 
 function fetchDataForDefaultCity() {
@@ -31,10 +34,7 @@ function fetchDataForDefaultCity() {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then((response) => {
-    displayEverything(response);
-    getForecast(defaultCity);
-  });
+  axios.get(apiUrl).then(displayEverything);
 }
 
 function search(event) {
@@ -44,31 +44,7 @@ function search(event) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then((response) => {
-    displayEverything(response);
-    getForecast(city);
-  });
-}
-
-function formatDate(date) {
-  let minutes = date.getMinutes();
-  let hours = date.getHours();
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let day = days[date.getDay()];
-
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-
-  return `${day}, ${hours}:${minutes}`;
+  axios.get(apiUrl).then(displayEverything);
 }
 
 function displayForecast(response) {
@@ -125,4 +101,5 @@ let currentDateElement = document.querySelector("#current-date");
 let currentDate = new Date();
 
 currentDateElement.innerHTML = formatDate(currentDate);
+
 window.addEventListener("load", fetchDataForDefaultCity);
