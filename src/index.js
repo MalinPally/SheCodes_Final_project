@@ -50,11 +50,13 @@ function formatDate(date) {
   let day = date.getDay();
 
   function displayForecast(){
+    function displayForecast() {
+    let forecastElement = document.querySelector("#forecast");
     let forecast = document.querySelector("#forecast");
     let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
     let forecastHtml = "";
 
-    days.forEach(funtion (day) {
+    days.forEach(function (day) {
          forecastHtml =
          forecastHtml +
          `
