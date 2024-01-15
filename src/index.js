@@ -25,7 +25,6 @@ function displayEverything(response) {
   let weatherDetails = document.getElementById("weatherDetails");
   weatherDetails.style.display = "block";
 
-  // Call getForecast to update the forecast for the current city
   getForecast(response.data.city);
 }
 
