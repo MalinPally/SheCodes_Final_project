@@ -47,45 +47,6 @@ function search(event) {
 function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
-  let day = date.getDay();
-}
-
-  function displayForecast(){
-    function displayForecast() {
-    let forecastElement = document.querySelector("#forecast");
-    let forecast = document.querySelector("#forecast");
-    let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
-    let forecastHtml = "";
-    }
-
-    days.forEach(function (day) {
-         forecastHtml =
-         forecastHtml +
-         `
-          <div class="weather-forecast" id="forecast">
-            <div class="weather-forecast-day">
-            <div class="weather-forecast-date">${day}</div>
-            <div class="weather-forecast-icon">☁️</div>
-              <div class="weather-forecast-temperatures">
-              <div class="weather-forecast-temperature-max">
-               <strong>15°</strong>
-              </div>
-              <div class="weather-forecast-temperature-min">9°</div>
-            </div>
-          </div>
-        `;
-    });
-
-    forecastElement.innerHTML = forecastHtml;
-
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-
   let days = [
     "Sunday",
     "Monday",
@@ -95,9 +56,39 @@ function formatDate(date) {
     "Friday",
     "Saturday",
   ];
+  let day = days[date.getDay()];
 
-  let formattedDay = days[day];
-  return `${formattedDay} ${hours}:${minutes}`;
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${day}, ${hours}:${minutes}`;
+}
+
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecast = document.querySelector("#forecast");
+  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHtml = "";
+
+  days.forEach(function (day) {
+    forecastHtml += `
+      <div class="weather-forecast" id="forecast">
+        <div class="weather-forecast-day">
+          <div class="weather-forecast-date">${day}</div>
+          <div class="weather-forecast-icon">☁️</div>
+          <div class="weather-forecast-temperatures">
+            <div class="weather-forecast-temperature-max">
+              <strong>15°</strong>
+            </div>
+            <div class="weather-forecast-temperature-min">9°</div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+    forecastElement.innerHTML = forecastHtml;
 }
 
 let searchForm = document.querySelector("#search-form");
