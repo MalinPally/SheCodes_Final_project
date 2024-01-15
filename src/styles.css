@@ -64,6 +64,7 @@ main {
   font-weight: 900;
   margin: 0;
 }
+
 .current-details {
   color: rgba(39, 33, 66, 0.4);
   font-size: 16px;
@@ -96,6 +97,15 @@ main {
 .weather-forecast {
   margin-top: 20px;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.weather-forecast-day {
+  text-align: center;
+  width: 18%; /* Adjust as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
 }
 
 .weather-forecast-date {
@@ -108,6 +118,7 @@ main {
   font-size: 10px;
   color: black;
 }
+
 .weather-forecast-temperature-min {
   opacity: 0.5;
 }
@@ -116,6 +127,5 @@ footer {
   border-top: 1px solid #f9f7fe;
   text-align: center;
   padding-top: 15px;
-
   color: rgba(39, 33, 66, 0.4);
 }
