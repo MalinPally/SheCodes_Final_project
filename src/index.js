@@ -1,32 +1,43 @@
 function displayEverything(response) {
-  let temperatureElement = document.querySelector("#current-temperature");
-  let temperature = Math.round(response.data.temperature.current);
-  let cityElement = document.querySelector("#current-city");
-  let windElement = document.querySelector("#windElement");
-  let humidityElement = document.querySelector("#humidityElement");
-  let conditionElement = document.querySelector("#conditionElement");
-  let iconElement = document.querySelector("#iconElement");
+  try {
+    console.log(response.data);
 
-  let wind = Math.round(response.data.wind.speed);
-  let humidity = Math.round(response.data.temperature.humidity);
-  let condition = response.data.condition.description;
-  let iconUrl = response.data.condition.icon_url;
-  let iconDescription = response.data.condition.icon;
+    const { city, temperature, wind, condition } = response.data;
 
-  cityElement.innerHTML = response.data.city;
-  temperatureElement.innerHTML = temperature;
-  windElement.innerHTML = wind + " km/h";
-  humidityElement.innerHTML = humidity + "%";
-  conditionElement.innerHTML = condition;
+    if (!city || !temperature || !wind || !condition) {
+      throw new Error("Invalid API response structure");
+    }
 
-  iconElement.src = iconUrl;
-  iconElement.alt = iconDescription;
+    let temperatureElement = document.querySelector("#current-temperature");
+    let cityElement = document.querySelector("#current-city");
+    let windElement = document.querySelector("#windElement");
+    let humidityElement = document.querySelector("#humidityElement");
+    let conditionElement = document.querySelector("#conditionElement");
+    let iconElement = document.querySelector("#iconElement");
 
-  let weatherDetails = document.getElementById("weatherDetails");
-  weatherDetails.style.display = "block";
+    let temperatureValue = Math.round(temperature.current);
+    let windSpeed = Math.round(wind.speed);
+    let humidity = temperature.humidity;
+    let conditionDescription = condition.description;
+    let iconUrl = condition.icon_url;
+    let iconDescription = condition.icon;
 
-  // Call getForecast to update the forecast for the current city
-  getForecast(response.data.city);
+    cityElement.innerHTML = city;
+    temperatureElement.innerHTML = temperatureValue;
+    windElement.innerHTML = windSpeed + " km/h";
+    humidityElement.innerHTML = humidity + "%";
+    conditionElement.innerHTML = conditionDescription;
+
+    iconElement.src = iconUrl;
+    iconElement.alt = iconDescription;
+
+    let weatherDetails = document.getElementById("weatherDetails");
+    weatherDetails.style.display = "block";
+
+    getForecast(city);
+  } catch (error) {
+    console.error("Error in displayEverything:", error.message);
+  }
 }
 
 function fetchDataForDefaultCity() {
@@ -101,6 +112,5 @@ let currentDateElement = document.querySelector("#current-date");
 let currentDate = new Date();
 
 currentDateElement.innerHTML = formatDate(currentDate);
-
 
 window.addEventListener("load", fetchDataForDefaultCity);
