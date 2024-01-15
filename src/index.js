@@ -52,7 +52,7 @@ function search(event) {
   let searchInputElement = document.querySelector("#search-input");
   let city = searchInputElement.value;
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(displayEverything);
 }
@@ -84,7 +84,7 @@ function displayForecast(response) {
 
 function getForecast(city) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(displayForecast);
 }
