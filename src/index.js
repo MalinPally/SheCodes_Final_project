@@ -101,6 +101,6 @@ searchFormElement.addEventListener("submit", handleSearchSubmit);
 let currentDateElement = document.querySelector("#current-date");
 let currentDate = new Date();
 
-currentDateElement.innerHTML = formatDate(currentDate);
+currentDateElement.innerHTML = formatDay(currentDate);
 
 window.addEventListener("load", fetchDataForDefaultCity);
