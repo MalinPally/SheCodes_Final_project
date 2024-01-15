@@ -102,10 +102,9 @@ main {
 
 .weather-forecast-day {
   text-align: center;
-  font-weight: 600;
-  color: #C0C0C0;
-  width: 18%; 
+  width: 18%; /* Adjust as needed */
   padding: 10px;
+  border: 1px solid #ccc;
 }
 
 .weather-forecast-date {

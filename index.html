@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,28 +17,47 @@
   <body>
     <div class="weather-app">
       <header>
-      <form id="search-form">
-    <input type="search" placeholder="Enter a city..." required  class="weather-form-city" id="search-form-input"/>
-    <input type="submit" value="Search" class="weather-form-search"/>
-      </form>
-    </header>
+        <form id="search-form">
+          <input
+            type="search"
+            placeholder="Enter a city.."
+            required
+            class="search-input"
+            id="search-input"
+          />
+          <input
+            type="submit"
+            value="Search"
+            class="search-button"
+            id="search-button"
+          />
+        </form>
+      </header>
       <main style="display: none" id="weatherDetails">
-       <main>
-<div class="weather-details">
-<div><h1 class="weather-city-value" id="city"></h1>
-<p> <span id="time"></span>, <span id="description"></span> <br />
-Humidity:<strong id="humidity"></strong> , Wind: <strong id="wind-speed"></strong> </p>
-</div>
-<div  class="weather-temperature">
-<div id="icon"></div>
-<div class="weather-temp-No" id="temperature"></div>
-<div class="weather-value">°C</div>
-</div>
-</div>
-</main>
-<section>
-<div class="weather-forecast" id="forecast"></div>
-</section>
+        <div class="current-weather">
+          <div>
+            <h1 class="current-city" id="current-city">Paris</h1>
+            <p class="current-details">
+              <span id="current-date-time">
+                <span id="current-date"></span>,
+                <span id="conditionElement">moderate rain</span><br />
+                Humidity: <strong id="humidityElement">87%</strong>, Wind:
+                <strong id="windElement">7.2 km/h</strong>
+              </span>
+            </p>
+          </div>
+          <div class="current-temperature">
+            <span class="current-temperature-icon">
+              <img id="iconElement" alt="Weather Icon" />
+            </span>
+            <span class="current-temperature-value" id="current-temperature"
+              >24</span
+            >
+            <span class="current-temperature-unit">°C</span>
+          </div>
+        </div>
+        <div id="forecast" class="weather-forecast"></div>
+      </main>
       <footer>
         <p>
           This project was coded by
