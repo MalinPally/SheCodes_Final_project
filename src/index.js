@@ -56,7 +56,6 @@ function handleSearchSubmit(event) {
 }
 
 // Event listener for search form
-const searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
 // Default city search
