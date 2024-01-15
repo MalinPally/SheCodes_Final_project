@@ -102,4 +102,5 @@ let currentDate = new Date();
 
 currentDateElement.innerHTML = formatDate(currentDate);
 
+
 window.addEventListener("load", fetchDataForDefaultCity);
