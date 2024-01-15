@@ -1,43 +1,29 @@
 function displayEverything(response) {
-  try {
-    console.log(response.data);
+  let temperatureElement = document.querySelector("#current-temperature");
+  let temperature = Math.round(response.data.temperature.current);
+  let cityElement = document.querySelector("#current-city");
+  let windElement = document.querySelector("#windElement");
+  let humidityElement = document.querySelector("#humidityElement");
+  let conditionElement = document.querySelector("#conditionElement");
+  let iconElement = document.querySelector("#iconElement");
 
-    const { city, temperature, wind, condition } = response.data;
+  let wind = Math.round(response.data.wind.speed);
+  let humidity = Math.round(response.data.temperature.humidity);
+  let condition = response.data.condition.description;
+  let iconUrl = response.data.condition.icon_url;
+  let iconDescription = response.data.condition.icon;
 
-    if (!city || !temperature || !wind || !condition) {
-      throw new Error("Invalid API response structure");
-    }
+  cityElement.innerHTML = response.data.city;
+  temperatureElement.innerHTML = temperature;
+  windElement.innerHTML = wind + " km/h";
+  humidityElement.innerHTML = humidity + "%";
+  conditionElement.innerHTML = condition;
 
-    let temperatureElement = document.querySelector("#current-temperature");
-    let cityElement = document.querySelector("#current-city");
-    let windElement = document.querySelector("#windElement");
-    let humidityElement = document.querySelector("#humidityElement");
-    let conditionElement = document.querySelector("#conditionElement");
-    let iconElement = document.querySelector("#iconElement");
+  iconElement.src = iconUrl;
+  iconElement.alt = iconDescription;
 
-    let temperatureValue = Math.round(temperature.current);
-    let windSpeed = Math.round(wind.speed);
-    let humidity = temperature.humidity;
-    let conditionDescription = condition.description;
-    let iconUrl = condition.icon_url;
-    let iconDescription = condition.icon;
-
-    cityElement.innerHTML = city;
-    temperatureElement.innerHTML = temperatureValue;
-    windElement.innerHTML = windSpeed + " km/h";
-    humidityElement.innerHTML = humidity + "%";
-    conditionElement.innerHTML = conditionDescription;
-
-    iconElement.src = iconUrl;
-    iconElement.alt = iconDescription;
-
-    let weatherDetails = document.getElementById("weatherDetails");
-    weatherDetails.style.display = "block";
-
-    getForecast(city);
-  } catch (error) {
-    console.error("Error in displayEverything:", error.message);
-  }
+  let weatherDetails = document.getElementById("weatherDetails");
+  weatherDetails.style.display = "block";
 }
 
 function fetchDataForDefaultCity() {
@@ -45,7 +31,10 @@ function fetchDataForDefaultCity() {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(displayEverything);
+  axios.get(apiUrl).then((response) => {
+    displayEverything(response);
+    getForecast(defaultCity);
+  });
 }
 
 function search(event) {
@@ -55,7 +44,31 @@ function search(event) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(displayEverything);
+  axios.get(apiUrl).then((response) => {
+    displayEverything(response);
+    getForecast(city);
+  });
+}
+
+function formatDate(date) {
+  let minutes = date.getMinutes();
+  let hours = date.getHours();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${day}, ${hours}:${minutes}`;
 }
 
 function displayForecast(response) {
@@ -112,5 +125,4 @@ let currentDateElement = document.querySelector("#current-date");
 let currentDate = new Date();
 
 currentDateElement.innerHTML = formatDate(currentDate);
-
 window.addEventListener("load", fetchDataForDefaultCity);
