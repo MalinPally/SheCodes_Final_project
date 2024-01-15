@@ -31,7 +31,10 @@ function fetchDataForDefaultCity() {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(displayEverything);
+  axios.get(apiUrl).then((response) => {
+    displayEverything(response);
+    getForecast(defaultCity);
+  });
 }
 
 function search(event) {
@@ -41,7 +44,10 @@ function search(event) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(displayEverything);
+  axios.get(apiUrl).then((response) => {
+    displayEverything(response);
+    getForecast(city);
+  });
 }
 
 function formatDate(date) {
@@ -66,37 +72,41 @@ function formatDate(date) {
 }
 
 function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
   let forecastHtml = "";
 
   response.data.daily.forEach(function (day, index) {
     if (index < 5) {
-      forecastHtml += `<div class="weather-forecast-day">
-                <div class="weather-forecast-date">${formatDay(day.time)}</div>
-
-                <img src="${
-                  day.condition.icon_url
-                }" class="weather-forecast-icon" />
-
-                <div class="weather-forecast-temperatures">
-                    <div class="weather-forecast-temperature">
-                        <strong>${Math.round(day.temperature.maximum)}º</strong>
-                    </div>
-                    <div class="weather-forecast-temperature">${Math.round(
-                      day.temperature.minimum
-                    )}º</div>
-                </div>
-            </div>`;
+      forecastHtml += `
+        <div class="weather-forecast-day">
+          <div class="weather-forecast-date">${formatDay(day.time)}</div>
+          <img src="${day.condition.icon_url}" class="weather-forecast-icon" />
+          <div class="weather-forecast-temperatures">
+            <div class="weather-forecast-temperature">
+              <strong>${Math.round(day.temperature.maximum)}º</strong>
+            </div>
+            <div class="weather-forecast-temperature">${Math.round(
+              day.temperature.minimum
+            )}º</div>
+          </div>
+        </div>`;
     }
   });
 
-  let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = forecastHtml;
 }
 
-function searchCity(city) {
+function getForecast(city) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
-  axios.get(apiUrl).then(updateWeatherInformation);
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  return days[date.getDay()];
 }
 
 function handleSearchSubmit(event) {
@@ -105,26 +115,14 @@ function handleSearchSubmit(event) {
   let cityElement = document.querySelector("#current-city");
 
   cityElement.innerHTML = searchInput.value;
-  searchCity(searchInput.value);
-}
-
-function formatDay(timestamp) {
-  let date = new Date(timestamp * 1000);
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-  return days[date.getDay()];
-}
-
-function getForecast(city) {
-  let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
-  axios(apiUrl).then(displayForecast);
-  console.log(apiUrl);
+  search(searchInput.value);
 }
 
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
-searchCity("Malmö");
+let currentDateElement = document.querySelector("#current-date");
+let currentDate = new Date();
 
-fetchDataForDefaultCity();
+currentDateElement.innerHTML = formatDate(currentDate);
+window.addEventListener("load", fetchDataForDefaultCity);
