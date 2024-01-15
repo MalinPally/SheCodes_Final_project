@@ -65,38 +65,56 @@ function formatDate(date) {
   return `${day}, ${hours}:${minutes}`;
 }
 
+function displayEverything(response) {
+  // Your existing code for displaying current weather details
+}
+
 function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
   let forecastHtml = "";
 
   response.data.daily.forEach(function (day, index) {
     if (index < 5) {
-      forecastHtml += `<div class="weather-forecast-day">
-                <div class="weather-forecast-date">${formatDay(day.time)}</div>
-
-                <img src="${
-                  day.condition.icon_url
-                }" class="weather-forecast-icon" />
-
-                <div class="weather-forecast-temperatures">
-                    <div class="weather-forecast-temperature">
-                        <strong>${Math.round(day.temperature.maximum)}º</strong>
-                    </div>
-                    <div class="weather-forecast-temperature">${Math.round(
-                      day.temperature.minimum
-                    )}º</div>
-                </div>
-            </div>`;
+      forecastHtml += `
+        <div class="weather-forecast-day">
+          <div class="weather-forecast-date">${formatDay(day.time)}</div>
+          <img src="${day.condition.icon_url}" class="weather-forecast-icon" />
+          <div class="weather-forecast-temperatures">
+            <div class="weather-forecast-temperature">
+              <strong>${Math.round(day.temperature.maximum)}º</strong>
+            </div>
+            <div class="weather-forecast-temperature">${Math.round(
+              day.temperature.minimum
+            )}º</div>
+          </div>
+        </div>`;
     }
   });
 
-  let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = forecastHtml;
+}
+
+function getForecast(city) {
+  let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  return days[date.getDay()];
 }
 
 function searchCity(city) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
-  axios.get(apiUrl).then(updateWeatherInformation);
+
+  axios.get(apiUrl).then((response) => {
+    displayEverything(response);
+    getForecast(city);
+  });
 }
 
 function handleSearchSubmit(event) {
@@ -108,23 +126,8 @@ function handleSearchSubmit(event) {
   searchCity(searchInput.value);
 }
 
-function formatDay(timestamp) {
-  let date = new Date(timestamp * 1000);
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-  return days[date.getDay()];
-}
-
-function getForecast(city) {
-  let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
-  axios(apiUrl).then(displayForecast);
-  console.log(apiUrl);
-}
-
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
 searchCity("Malmö");
 
-fetchDataForDefaultCity();
