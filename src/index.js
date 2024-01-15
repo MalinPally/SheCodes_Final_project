@@ -31,10 +31,7 @@ function fetchDataForDefaultCity() {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then((response) => {
-    displayEverything(response);
-    getForecast(defaultCity);
-  });
+  axios.get(apiUrl).then(displayEverything);
 }
 
 function search(event) {
@@ -44,11 +41,9 @@ function search(event) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then((response) => {
-    displayEverything(response);
-    getForecast(city);
-  });
+  axios.get(apiUrl).then(displayEverything);
 }
+
 
 function formatDate(date) {
   let minutes = date.getMinutes();
