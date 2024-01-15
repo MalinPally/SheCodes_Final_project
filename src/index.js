@@ -1,5 +1,4 @@
 function displayEverything(response) {
-  console.log(response.data);
   let temperatureElement = document.querySelector("#current-temperature");
   let temperature = Math.round(response.data.temperature.current);
   let cityElement = document.querySelector("#current-city");
@@ -25,8 +24,6 @@ function displayEverything(response) {
 
   let weatherDetails = document.getElementById("weatherDetails");
   weatherDetails.style.display = "block";
-
-  getForecast(response.data.city);
 }
 
 function fetchDataForDefaultCity() {
@@ -34,7 +31,10 @@ function fetchDataForDefaultCity() {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${defaultCity}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(displayEverything);
+  axios.get(apiUrl).then((response) => {
+    displayEverything(response);
+    getForecast(defaultCity);
+  });
 }
 
 function search(event) {
@@ -44,11 +44,34 @@ function search(event) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(displayEverything);
+  axios.get(apiUrl).then((response) => {
+    displayEverything(response);
+    getForecast(city);
+  });
+}
+
+function formatDate(date) {
+  let minutes = date.getMinutes();
+  let hours = date.getHours();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${day}, ${hours}:${minutes}`;
 }
 
 function displayForecast(response) {
-  console.log(response.data);
   let forecastElement = document.querySelector("#forecast");
   let forecastHtml = "";
 
@@ -92,7 +115,7 @@ function handleSearchSubmit(event) {
   let cityElement = document.querySelector("#current-city");
 
   cityElement.innerHTML = searchInput.value;
-  search(event);
+  search(searchInput.value);
 }
 
 let searchFormElement = document.querySelector("#search-form");
@@ -101,6 +124,5 @@ searchFormElement.addEventListener("submit", handleSearchSubmit);
 let currentDateElement = document.querySelector("#current-date");
 let currentDate = new Date();
 
-currentDateElement.innerHTML = formatDay(currentDate);
-
+currentDateElement.innerHTML = formatDate(currentDate);
 window.addEventListener("load", fetchDataForDefaultCity);
