@@ -6,7 +6,6 @@ function displayEverything(response) {
   let humidityElement = document.querySelector("#humidityElement");
   let conditionElement = document.querySelector("#conditionElement");
   let iconElement = document.querySelector("#iconElement");
-  let currentDateElement = document.querySelector("#current-date");
 
   let wind = Math.round(response.data.wind.speed);
   let humidity = Math.round(response.data.temperature.humidity);
@@ -14,6 +13,7 @@ function displayEverything(response) {
   let iconUrl = response.data.condition.icon_url;
   let iconDescription = response.data.condition.icon;
 
+  let currentDateElement = document.querySelector("#current-date");
   let currentDate = new Date(response.data.timestamp * 1000);
   currentDateElement.innerHTML =
     formatDay(currentDate) + " " + formatTime(currentDate);
@@ -39,11 +39,6 @@ function formatTime(date) {
   return `${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
 }
 
-function formatDay(timestamp) {
-  let date = new Date(timestamp * 1000);
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return days[date.getDay()];
-}
 function fetchDataForDefaultCity() {
   let defaultCity = "Malmö";
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";

@@ -1,17 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="src/styles.css" />
-    <title>My Weather Application</title>
+    <!-- Your head content here -->
   </head>
   <body>
     <div class="weather-app">
@@ -32,12 +22,12 @@
           />
         </form>
       </header>
-      <main style="display: none" id="weatherDetails">
+      <main style="display: none;" id="weatherDetails">
         <div class="current-weather">
           <div>
             <h1 class="current-city" id="current-city">Paris</h1>
             <p class="current-details">
-              <span id="current-date"></span><br />
+              <span id="current-date-time"></span>,
               <span id="conditionElement">moderate rain</span><br />
               Humidity: <strong id="humidityElement">87%</strong>, Wind:
               <strong id="windElement">7.2 km/h</strong>
@@ -53,13 +43,16 @@
             <span class="current-temperature-unit">°C</span>
           </div>
         </div>
-        <div id="forecast" class="weather-forecast"></div>
+        <div id="forecast" class="weather-forecast">
+        </div> 
       </main>
       <footer>
         <p>
           This project was coded by
           <a href="#" target="_blank">Malin Bengtsson</a> and is
-          <a href="https://github.com/MalinPally/GitHub-Hosting" target="_blank"
+          <a
+            href="https://github.com/MalinPally/GitHub-Hosting"
+            target="_blank"
             >on GitHub</a
           >
           and
@@ -71,6 +64,7 @@
         </p>
       </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script src="src/index.js"></script>
   </body>
 </html>
