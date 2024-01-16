@@ -103,7 +103,7 @@ function displayForecast(response) {
 }
 
 function searchCity(city) {
-  let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
+  let apiKey = "6ao30d4c3f4t8b09259fcd03dac689e";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(refreshWeather);
 }
@@ -111,14 +111,12 @@ function searchCity(city) {
 
 function getForecast(city) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
   axios.get(apiUrl).then(displayForecast);
 }
 
-
-
 function formatDay(timestamp) {
-  console.log(response.data);
   let date = new Date(timestamp * 1000);
   let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   return days[date.getDay()];
@@ -126,11 +124,11 @@ function formatDay(timestamp) {
 
 function handleSearchSubmit(event) {
   event.preventDefault();
-  let searchInput = document.querySelector("#search-form-input");
+  let searchInput = document.querySelector("#search-input");
   let cityElement = document.querySelector("#current-city");
 
   cityElement.innerHTML = searchInput.value;
-  searchCity(searchInput.value);
+  search(searchInput.value);
 }
 
 let searchFormElement = document.querySelector("#search-form");
