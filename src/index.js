@@ -1,17 +1,13 @@
 function searchCity(city) {
   let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  let currentApiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(updateWeather);
+  axios.get(currentApiUrl).then(updateWeather);
+  axios.get(forecastApiUrl).then(displayForecast);
 }
 
-let defaultCity = "Pretoria";
-
-function getForecast(city) {
-  let apiKey = "66ao30d4c3f4t8b09259fcd03dac689e";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayForecast);
-}
+let defaultCity = "Malmö";
 
 function updateWeather(response) {
   let temperatureElement = document.querySelector("#temperature");
@@ -32,8 +28,6 @@ function updateWeather(response) {
   humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
   windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`;
   timeElement.innerHTML = formalDate(new Date(response.data.time * 1000));
-
-  getForecast(response.data.city);
 }
 
 function displayForecast(response) {
@@ -80,4 +74,5 @@ function handleSearchSubmit(event) {
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
+// Initially load weather for the default city
 searchCity(defaultCity);
